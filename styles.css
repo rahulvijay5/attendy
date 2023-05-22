@@ -1,0 +1,127 @@
+*{
+    scroll-behavior: auto;
+}
+body{
+    background: linear-gradient(167.95deg, #0F102E 0%, #121212 100%);
+    overflow: hidden;
+}
+
+
+.container{
+    width: 100%;
+    height: 50vh;
+    color: white;
+    padding: 1px;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 70px;
+    /* margin-left: 10%;
+    margin-right: 10%; */
+    
+
+}
+
+/* for page 1*/
+.container1{
+    width: 100%;
+    height: 50vh;
+    color: white;
+    padding: 1px;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 70px;
+}
+.container1 h2{
+    font-size: 45px;
+    font-family: 'Gothic A1';
+    margin-bottom: 2px;
+}
+
+#user{
+    color: #676CE7;
+}
+
+
+.para{
+    font-size: smaller;
+    margin-top: 30px;
+    font-family: 'Baloo Bhaijaan 2';
+    letter-spacing: 0.2px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    
+}
+
+.container h2{
+    color: #676CE7;
+    font-size: 45px;
+    font-family: 'Gothic A1';
+    margin-bottom: 2px;
+}
+
+.container h4{
+    margin-top:4px;
+    font-family: 'Gothic A1';
+}
+
+.col-75 input{
+    background: none;
+    outline: none;
+    border: 0px;
+    border-bottom: 0.1px solid white;
+    padding: 5px;
+    width: 60%;
+    font-family: 'Baloo Bhaijaan 2';
+    margin-top: 45px;
+    font-size: medium;
+    
+}
+
+.col-85 input{
+    background: none;
+    outline: none;
+    border: 0px;
+    border-bottom: 0.1px solid white;
+    padding: 5px;
+    width: 60%;
+    font-family: 'Baloo Bhaijaan 2';
+    margin-top: 45px;
+    font-size: medium;
+    display: contents;
+    
+}
+
+input[type=text]{
+    color: white;
+}
+
+.row1 input{
+    width: 60%;
+    margin-top: 50px;
+    background-color: #676CE7;
+    border-radius: 36px;
+    padding: 10px;
+    color: white;
+    font-family: 'Baloo Bhaijaan 2';
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    word-spacing: 2px;
+}
+
+.row1 input:hover{
+    color: #676CE7;
+    background-color: whitesmoke;
+    border: solid;
+    border-width: 3px;
+    border-color: #676CE7;
+    transition: 0.3s;
+    
+}
+

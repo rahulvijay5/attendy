@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon"      href="photos/today.png"      type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Baloo Bhaijaan 2"     rel="stylesheet"    />
+    <link href="https://fonts.googleapis.com/css?family=Gothic A1"      rel="stylesheet"    />
+    <title>Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <img src="photos/today.png" width="10%" alt="">
+      </div>
+      <h2>Attendance</h2>
+      <h4>Recorder</h4>
+      <div class="para">
+        <p id="subheading">
+          <!-- Mark your attendance just by having a unique code, as mentioned by the
+          teacher. -->
+        </p>
+      </div>
+      <form action="action_page.php" method="post" autocomplete="off" name="google-sheet">
+        <div class="row">
+          <div class="col-75">
+            <input
+              type="text"
+              id="code"
+              name="Code"
+              placeholder="Code"
+              required
+            />
+          </div>
+        </div>
+        <!-- this is important -->
+        <div class="row"><div class="col-85"><input type="text" id="name" name="Name" placeholder="Name"/></div></div>
+        <div class="row"><div class="col-85"><input type="text" id="rollnumber" name="Roll Number" placeholder="Roll number"/></div></div>
+        <div class="row"><div class="col-85"><input type="text" id="date" name="Date" placeholder="Date"/></div></div>
+        <div class="row"><div class="col-85"><input type="text" id="time" name="Time" placeholder="Time"/></div></div>
+        <div class="row"><div class="col-85"><input type="text" id="latitude" name="Latitude" placeholder="posi1"/></div></div>
+        <div class="row"><div class="col-85"><input type="text" id="longitude" name="Longitude" placeholder="posi2"/></div></div>
+        <div class="row"><div class="col-85"><input type="text" id="accuracy" name="Accuracy" placeholder="accu"/></div></div>
+
+        <div class="row1">
+          <input
+            type="submit"
+            value="Record "
+            placeholder="Record Attendance"
+          />
+        </div>
+
+        <!-- for trial -->
+        <!-- <button onclick="backpage()" style="margin-top: 50px;" id="backpage">go back</button> -->
+
+      </form>
+    </div>
+    <p id="demo"></p>
+    
+
+<!-- Javascript ahead -->
+
+<script>
+var x = document.getElementById("demo");
+const months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+const code = document.getElementById("code");
+const date= new Date;
+    const date11 = date.getDate()+" "+months[date.getMonth()]+" "+date.getFullYear();
+    const time11 = date.toLocaleTimeString();
+
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbzu8jL_-Wzz4JOhA5caYK1HAdZCH-ob90BkIETGBauP49SlFPe5rDOfDtOxxp4Q6VM/exec'
+      const form = document.forms['google-sheet']
+    
+form.addEventListener('submit', e => {
+        e.preventDefault()
+        // if(submit.value=""){code.innerHTML = 'required'};
+        // getElementById("subheading").innerHTML="Submitting Response..."
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(response => window.location.href='success.html')
+          .catch(error => console.error('Error!', error.message))
+          code.value="";
+          name.value="";
+          rollnumber.value="";
+          date.value="";
+          time.value="";
+          latitude.value="";
+          longitude.value="";   
+          
+      })
+
+
+      //getting name and roll number out of local storage
+    const name = localStorage.getItem('name');
+    const rollnumber = localStorage.getItem('rollnumber');
+
+    function greeting(){
+        document.getElementById("subheading").innerHTML = "Hello "  + name + "! Enter the today's unique code, as described by teacher in the class."
+        }
+
+
+if(name){
+        
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        console.clear();
+    
+        } 
+        else { 
+        x.innerHTML = "Location access is not supported by this browser.";
+        }
+
+
+        function showPosition(position) {
+        var x= "\nLatitude: " + position.coords.latitude;
+        var y= "\nLongitude: " + position.coords.longitude;
+        var z= "\nAccuracy of position: " + position.coords.accuracy;
+        var h = "\nAltitude: " + position.coords.altitude;
+        
+        console.log('Exists');
+
+        greeting();
+        
+
+        console.log(localStorage.getItem("name"));
+        console.log(localStorage.getItem("rollnumber"));
+        console.log(date11);
+        console.log(time11);
+
+        
+        document.getElementById("name").setAttribute("value" , localStorage.getItem('name'))
+          // console.log("name stored in mode")
+        document.getElementById("rollnumber").setAttribute("value" , localStorage.getItem('rollnumber'))
+          // console.log("rollnumber stored in mode")
+        document.getElementById("date").setAttribute("value" , date11)
+          // console.log("date stored in mode")
+        document.getElementById("time").setAttribute("value" , time11);
+          console.log("name,rollnumber,date, time stored in mode")
+
+        sessionStorage.setItem("lati", position.coords.latitude);
+        //  console.log("latitude stored in mode");
+        sessionStorage.setItem("longi", position.coords.longitude);
+        // console.log("latitude, longitude stored in mode")
+        sessionStorage.setItem("accu", position.coords.accuracy);
+        console.log("latitude, longitude, accuracy stored in mode")
+        console.log(x)
+        console.log(y)
+        console.log(z)
+        console.log(h)
+
+        document.getElementById("latitude").setAttribute("value" , sessionStorage.getItem('lati'));
+        document.getElementById("longitude").setAttribute("value" , sessionStorage.getItem('longi'));
+        document.getElementById("accuracy").setAttribute("value" , sessionStorage.getItem('accu'));
+
+        sessionStorage.clear()
+        console.log("session storage cleared")
+      }
+
+//error function
+    function showError(error) {
+    switch(error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML = "User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML = "Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML = "The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML = "An unknown error occurred."
+      break;
+    }
+    }{enableHighAccuracy: true}
+    }
+else{
+        console.log('Not found');
+        backpage();
+        alert("Resiter, Firstly");
+    }
+      function backpage(){
+        localStorage.clear();
+        window.location.href="page1.html";
+      }
+
+
+// for checking incognito mode
+// function main() { 
+//   var fs = window.RequestFileSystem || window.webkitRequestFileSystem; 
+//   if (!fs) { 
+//     result.textContent = "is browser in private mode?"; 
+//     return; 
+//   } 
+//   fs(window.TEMPORARY, 100, function(fs) { 
+//     result.textContent = console.log("Browser is not in incognito mode") 
+//   }, function(err) { 
+//     result.textContent = "Browser is  in incognito mode"; 
+//   }); 
+// } 
+// main(); 
+
+</script>
+
+</body>
+</html>
